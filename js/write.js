@@ -7,8 +7,8 @@ $(function() {
 
 $('.card-section').on('click', '.delete-btn', function(){
   var id = $(this).closest(".idea-card").attr("id");
-  localStorage.removeItem(id);
   $(this).closest('.idea-card').remove();
+  localStorage.removeItem(id);
 });
 
 $('.card-section').on('click', '.up-btn', function(){
@@ -77,8 +77,6 @@ $('.js-title-input, .js-body-input').keyup(function(){
    storeIdea(id, storedObj);
  });
 
-
-
 function NewIdea (title, body, quality){
   this.title = title;
   this.body = body;
@@ -113,6 +111,21 @@ function displayCard (idea){
   </section>`
   );
 }
+//
+//  $('.search-input').on('keyup', function(){
+//    var searchField = $(this).val().toLowerCase();
+//    $(".li-title").each(function(index, title){
+//
+//      var titleBox = $(this).find(".li-title").text().toLowerCase();
+//      var checkInput = title.indexOf(searchField) !== -1;
+//        if (checkInput) {
+//          $(title).show();
+//        } else {
+//          $(title).hide();
+//        }
+//    })
+//  })
+// ;
 
 function clearInputs(){
   $('.js-title-input').val('');
