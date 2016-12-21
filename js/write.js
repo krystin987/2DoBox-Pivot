@@ -25,7 +25,7 @@ $('.card-section').on('click', '.up-btn', function(){
       storedObj.quality = currentQuality;
       selector.text(currentQuality)
     }
-    StoreIdea(id, storedObj);
+    storeIdea(id, storedObj);
 });
 
 $('.card-section').on('click', '.down-btn', function(){
@@ -42,7 +42,7 @@ $('.card-section').on('click', '.down-btn', function(){
       storedObj.quality = currentQuality;
       selector.text(currentQuality)
     }
-    StoreIdea(id, storedObj);
+    storeIdea(id, storedObj);
 });
 
 $('.js-save-btn').on('click', function(){
@@ -51,9 +51,33 @@ $('.js-save-btn').on('click', function(){
   var $idea = new NewIdea($titleInput, $bodyInput);
   NewIdea();
   displayCard($idea);
-  StoreIdea(id, $idea);
+  storeIdea(id, $idea);
   clearInputs();
 });
+
+$('.js-title-input, .js-body-input').keyup(function(){
+  var $title = $('.js-title-input').val();
+  var $body = $('.js-body-input').val();
+    if ($title && $body){
+      $('.js-save-btn').attr('disabled', false);
+    } else {
+      $('.js-save-btn').attr('disabled', true);
+    }
+});
+
+ $('.card-section').on('blur', '.card-box', function(){
+   var id = getID(this);
+   var storedObj = getIdea(id);
+   var selectorTitle = $(this).closest('.idea-card').find('.li-title');
+   var selectorBody = $(this).closest('.idea-card').find('.li-body');
+   var currentTitle = selectorTitle.text();
+   var currentBody = selectorBody.text();
+   storedObj.title = currentTitle;
+   storedObj.body = currentBody;
+   storeIdea(id, storedObj);
+ });
+
+
 
 function NewIdea (title, body, quality){
   this.title = title;
@@ -70,7 +94,7 @@ function getIdea(id){
   return JSON.parse(localStorage.getItem(id));
 };
 
-function StoreIdea (id, idea){
+function storeIdea (id, idea){
    localStorage.setItem(id, JSON.stringify(idea));
 };
 
@@ -93,4 +117,5 @@ function displayCard (idea){
 function clearInputs(){
   $('.js-title-input').val('');
   $('.js-body-input').val('');
+  $('.js-save-btn').attr('disabled', true);
 };
