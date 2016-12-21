@@ -78,6 +78,10 @@ button {
   background-color: #045E55;
 }
 
+.save-btn[disabled] {
+  background-color: lightgrey;
+}
+
 /*Content in .search-section*/
 
 .search-input {
@@ -107,6 +111,15 @@ button {
 
 .delete-btn {
   float:right;
+  background: url(../images/delete.svg);
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+}
+
+.delete-btn:hover {
+  background: url(../images/delete-hover.svg);
+  cursor: pointer;
 }
 
 .li-body {
@@ -125,6 +138,28 @@ button {
 
 .up-btn {
   margin-left: 10px;
+  background: url(../images/upvote.svg);
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+}
+
+.up-btn:hover {
+  background: url(../images/upvote-hover.svg);
+  cursor: pointer;
+}
+
+.down-btn {
+  margin-left: 10px;
+  background: url(../images/downvote.svg);
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+}
+
+.down-btn:hover {
+  background: url(../images/downvote-hover.svg);
+  cursor: pointer;
 }
 
 #key-number {

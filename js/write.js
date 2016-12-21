@@ -78,12 +78,12 @@ function displayCard (idea){
   $('.card-section').prepend(
     `<section id="${idea.id}" class="idea-card">
     <ul class="card-box">
-    <li class="li-title"> ${idea.title} </li>
-    <button class="delete-btn"><img src="images/delete.svg"> </img></button>
-    <li class="li-body">${idea.body}</li>
+    <li class="li-title" contenteditable> ${idea.title} </li>
+    <button class="delete-btn"></button>
+    <li class="li-body" contenteditable>${idea.body}</li>
     <li id="key-number" class="li-id">"${idea.id}"</li>
-    <button class="up-btn"><img src="images/upvote.svg"></img></button>
-    <button class="down-btn"><img src="images/downvote.svg"></img></button>
+    <button class="up-btn"></button>
+    <button class="down-btn"></button>
     <li>quality: <span class="li-quality">${idea.quality}</span></li>
     </ui>
   </section>`
