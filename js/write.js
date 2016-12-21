@@ -1,6 +1,6 @@
 $(function() {
   for (var i = 0; i < localStorage.length; i++){
-    var storedObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    var storedObj = getIdea(localStorage.key(i));
     displayCard(storedObj);
   }
 });
@@ -9,6 +9,40 @@ $('.card-section').on('click', '.delete-btn', function(){
   var id = $(this).closest(".idea-card").attr("id");
   localStorage.removeItem(id);
   $(this).closest('.idea-card').remove();
+});
+
+$('.card-section').on('click', '.up-btn', function(){
+  var id = getID(this);
+  var storedObj = getIdea(id);
+  var selector = $(this).closest('.idea-card').find('.li-quality');
+  var currentQuality = selector.text();
+    if (currentQuality === "Swill"){
+      currentQuality = "Plausible"
+      storedObj.quality = currentQuality;
+      selector.text(currentQuality)
+    } else if (currentQuality === "Plausible") {
+      currentQuality = "Genius"
+      storedObj.quality = currentQuality;
+      selector.text(currentQuality)
+    }
+    StoreIdea(id, storedObj);
+});
+
+$('.card-section').on('click', '.down-btn', function(){
+  var id = getID(this);
+  var storedObj = getIdea(id);
+  var selector = $(this).closest('.idea-card').find('.li-quality');
+  var currentQuality = selector.text();
+    if (currentQuality === "Genius") {
+      currentQuality = "Plausible"
+      storedObj.quality = currentQuality;
+      selector.text(currentQuality)
+    } else if (currentQuality === "Plausible") {
+      currentQuality = "Swill"
+      storedObj.quality = currentQuality;
+      selector.text(currentQuality)
+    }
+    StoreIdea(id, storedObj);
 });
 
 $('.js-save-btn').on('click', function(){
@@ -28,6 +62,14 @@ function NewIdea (title, body, quality){
   this.quality = quality || 'Swill';
 }
 
+function getID(selector) {
+  return $(selector).closest(".idea-card").attr("id");
+}
+
+function getIdea(id){
+  return JSON.parse(localStorage.getItem(id));
+};
+
 function StoreIdea (id, idea){
    localStorage.setItem(id, JSON.stringify(idea));
 };
@@ -38,11 +80,11 @@ function displayCard (idea){
     <ul class="card-box">
     <li class="li-title"> ${idea.title} </li>
     <button class="delete-btn"><img src="images/delete.svg"> </img></button>
-    <li class="li-body">"${idea.body}"</li>
+    <li class="li-body">${idea.body}</li>
     <li id="key-number" class="li-id">"${idea.id}"</li>
     <button class="up-btn"><img src="images/upvote.svg"></img></button>
     <button class="down-btn"><img src="images/downvote.svg"></img></button>
-    <li class="li-quality">"quality:${idea.quality}"</li>
+    <li>quality: <span class="li-quality">${idea.quality}</span></li>
     </ui>
   </section>`
   );
