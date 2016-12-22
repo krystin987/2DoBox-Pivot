@@ -111,21 +111,20 @@ function displayCard (idea){
   </section>`
   );
 }
-//
-//  $('.search-input').on('keyup', function(){
-//    var searchField = $(this).val().toLowerCase();
-//    $(".li-title").each(function(index, title){
-//
-//      var titleBox = $(this).find(".li-title").text().toLowerCase();
-//      var checkInput = title.indexOf(searchField) !== -1;
-//        if (checkInput) {
-//          $(title).show();
-//        } else {
-//          $(title).hide();
-//        }
-//    })
-//  })
-// ;
+  
+$('.search-input').on('keyup', function(){
+  var searchField = $(this).val().toLowerCase();
+  $.each($(".li-title"), function(index, title){
+
+    var titleBox = $(this).find(".li-title").text().toLowerCase();
+    var checkInput = $(title).text().indexOf(searchField) !== -1;
+      if (checkInput) {
+        $(title).parents('.idea-card').show();
+      } else {
+        $(title).parents('.idea-card').hide();
+      }
+  })
+});
 
 function clearInputs(){
   $('.js-title-input').val('');
