@@ -7,11 +7,11 @@ describe('testing 2Dobox', function() {
   .forBrowser('chrome')
   .build();
 
+  test.it.only('should allow me to add a title and description', function() {
+    this.timeout(10000);
+    driver.get('http://localhost:8080');
 
-    test.it('should allow me to add a title and description', ()=> {
-      driver.get('http://localhost:8080');
 
-      console.log('hello');
-
-      });
+    });
+    driver.quit();
  });
