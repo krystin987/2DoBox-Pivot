@@ -3,13 +3,15 @@ const webdriver = require('selenium-webdriver');
 const test = require('selenium-webdriver/testing');
 
 describe('testing 2Dobox', function() {
-  let driver
-  test.beforeEach(()=> {
-    this.timeout(1000000);
-    driver = new webdriver.Builder()
-                          .forBrowser('chrome')
-                          .build();
+  const driver = new webdriver.Builder()
+  .forBrowser('chrome')
+  .build();
 
-    driver.get('http://localhost:8080');
- })
-});
+
+    test.it('should allow me to add a title and description', ()=> {
+      driver.get('http://localhost:8080');
+
+      console.log('hello');
+
+      });
+ });
