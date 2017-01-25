@@ -34,6 +34,6 @@ describe('testing 2Dobox', function() {
     driver.findElements({tagName: 'ul'}).then((ul)=> {
       assert.equal(ul.length, 1);
     });
-    driver.quit();
+    // driver.quit();
   });
  });
