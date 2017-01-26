@@ -3,7 +3,7 @@ const webdriver = require('selenium-webdriver');
 const test = require('selenium-webdriver/testing');
 
 describe('testing 2Dobox', function() {
-  let driver
+  let driver;
 
   test.beforeEach(function() {
     this.timeout(10000);
@@ -15,18 +15,18 @@ describe('testing 2Dobox', function() {
 
   test.afterEach(()=> {
     // driver.quit();
-  })
+  });
 
   test.it('should allow me to add a title and task', function() {
 
     const title = driver.findElement({name: 'title'});
-    title.sendKeys('Title tester')
+    title.sendKeys('Title tester');
     title.getAttribute('value').then((value) => {
       assert.equal(value, 'Title tester');
     });
 
     const task = driver.findElement({name: 'task'});
-    task.sendKeys('task tester')
+    task.sendKeys('task tester');
     task.getAttribute('value').then((value)=> {
       assert.equal(value, 'task tester');
     });
@@ -34,13 +34,13 @@ describe('testing 2Dobox', function() {
 
   test.it('save button should add a new task to the page', ()=> {
     const title = driver.findElement({name: 'title'});
-    title.sendKeys('Title tester')
+    title.sendKeys('Title tester');
     title.getAttribute('value').then((value) => {
       assert.equal(value, 'Title tester');
     });
 
     const task = driver.findElement({name: 'task'});
-    task.sendKeys('task tester')
+    task.sendKeys('task tester');
     task.getAttribute('value').then((value)=> {
       assert.equal(value, 'task tester');
     });
@@ -54,13 +54,13 @@ describe('testing 2Dobox', function() {
 
   test.it('should increase in importance when upvote button is clicked', ()=> {
     const title = driver.findElement({name: 'title'});
-    title.sendKeys('Title tester')
+    title.sendKeys('Title tester');
     title.getAttribute('value').then((value) => {
       assert.equal(value, 'Title tester');
     });
 
     const task = driver.findElement({name: 'task'});
-    task.sendKeys('task tester')
+    task.sendKeys('task tester');
     task.getAttribute('value').then((value)=> {
       assert.equal(value, 'task tester');
     });
@@ -82,13 +82,13 @@ describe('testing 2Dobox', function() {
 
   test.it('should increase in importance when upvote button is clicked twice', ()=> {
     const title = driver.findElement({name: 'title'});
-    title.sendKeys('Title tester')
+    title.sendKeys('Title tester');
     title.getAttribute('value').then((value) => {
       assert.equal(value, 'Title tester');
     });
 
     const task = driver.findElement({name: 'task'});
-    task.sendKeys('task tester')
+    task.sendKeys('task tester');
     task.getAttribute('value').then((value)=> {
       assert.equal(value, 'task tester');
     });
@@ -111,13 +111,13 @@ describe('testing 2Dobox', function() {
 
  test.it('should decrease in importance when downvote button is clicked', ()=> {
    const title = driver.findElement({name: 'title'});
-   title.sendKeys('Title tester')
+   title.sendKeys('Title tester');
    title.getAttribute('value').then((value) => {
      assert.equal(value, 'Title tester');
    });
 
    const task = driver.findElement({name: 'task'});
-   task.sendKeys('task tester')
+   task.sendKeys('task tester');
    task.getAttribute('value').then((value)=> {
      assert.equal(value, 'task tester');
    });
@@ -139,13 +139,13 @@ describe('testing 2Dobox', function() {
 
  test.it('should decrease in importance when downvote button is clicked twice', ()=> {
    const title = driver.findElement({name: 'title'});
-   title.sendKeys('Title tester')
+   title.sendKeys('Title tester');
    title.getAttribute('value').then((value) => {
      assert.equal(value, 'Title tester');
    });
 
    const task = driver.findElement({name: 'task'});
-   task.sendKeys('task tester')
+   task.sendKeys('task tester');
    task.getAttribute('value').then((value)=> {
      assert.equal(value, 'task tester');
    });
@@ -168,13 +168,13 @@ describe('testing 2Dobox', function() {
 
  test.it('should add class of complete when clicked', ()=> {
    const title = driver.findElement({name: 'title'});
-   title.sendKeys('Title tester')
+   title.sendKeys('Title tester');
    title.getAttribute('value').then((value) => {
      assert.equal(value, 'Title tester');
    });
 
    const task = driver.findElement({name: 'task'});
-   task.sendKeys('task tester')
+   task.sendKeys('task tester');
    task.getAttribute('value').then((value)=> {
      assert.equal(value, 'task tester');
    });
@@ -187,9 +187,9 @@ describe('testing 2Dobox', function() {
 
    const completeBtn = driver.findElement({className: 'complete-btn'});
    completeBtn.click();
-   const completeStatus = driver.findElement({className: 'complete-btn'});
+   const completeStatus = driver.findElement({className: 'idea-card'});
    completeStatus.getAttribute('class').then((complete)=> {
-     assert.equal(complete, 'complete-btn complete');
+     assert.equal(complete, 'idea-card complete');
    });
 
  });
