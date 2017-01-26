@@ -108,4 +108,61 @@ describe('testing 2Dobox', function() {
       assert.equal(importance, 'Critical');
   });
  });
+
+ test.it('should decrease in importance when downvote button is clicked', ()=> {
+   const title = driver.findElement({name: 'title'});
+   title.sendKeys('Title tester')
+   title.getAttribute('value').then((value) => {
+     assert.equal(value, 'Title tester');
+   });
+
+   const task = driver.findElement({name: 'task'});
+   task.sendKeys('task tester')
+   task.getAttribute('value').then((value)=> {
+     assert.equal(value, 'task tester');
+   });
+
+   const button = driver.findElement({name: 'save'});
+   button.click();
+   driver.findElements({tagName: 'ul'}).then((ul)=> {
+     assert.equal(ul.length, 1);
+   });
+
+   const downVoteButton = driver.findElement({className: 'down-btn'});
+   downVoteButton.click();
+
+   const importance = driver.findElement({className: 'li-quality'});
+   importance.getText().then((importance)=> {
+     assert.equal(importance, 'Low');
+   });
+ });
+
+ test.it('should decrease in importance when downvote button is clicked twice', ()=> {
+   const title = driver.findElement({name: 'title'});
+   title.sendKeys('Title tester')
+   title.getAttribute('value').then((value) => {
+     assert.equal(value, 'Title tester');
+   });
+
+   const task = driver.findElement({name: 'task'});
+   task.sendKeys('task tester')
+   task.getAttribute('value').then((value)=> {
+     assert.equal(value, 'task tester');
+   });
+
+   const button = driver.findElement({name: 'save'});
+   button.click();
+   driver.findElements({tagName: 'ul'}).then((ul)=> {
+     assert.equal(ul.length, 1);
+   });
+
+   const downVoteButton = driver.findElement({className: 'down-btn'});
+   downVoteButton.click();
+   downVoteButton.click();
+
+   const importance = driver.findElement({className: 'li-quality'});
+   importance.getText().then((importance)=> {
+     assert.equal(importance, 'None');
+   });
+ });
 });
