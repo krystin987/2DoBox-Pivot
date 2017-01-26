@@ -30,7 +30,7 @@ li {
 }
 
 button {
-  width:40px;
+  /*width:40px;*/
   background: transparent;
   border:none;
 }
@@ -95,6 +95,7 @@ button {
 /*Content in .card-section*/
 
 .idea-card {
+  position: relative;
   margin-bottom: 4%;
   border-bottom: 2px solid #D1D3D4;
   padding: 10px;
@@ -122,9 +123,33 @@ button {
   cursor: pointer;
 }
 
+.complete-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 5px;
+  padding: 5px;
+  background-color: #939598;
+  border-radius: 2px;
+  box-shadow: 0 2px .5px #939598;
+  color: #fff;
+  cursor: pointer;
+}
+
+.complete-btn:hover,
+.complete-btn:focus {
+  border: none;
+  color: #fff;
+  background-color: lightgreen;
+}
+
+
 .li-body {
   color: #939598;
   line-height: 150%;
+}
+
+.complete {
+  background-color: lightgrey;
 }
 
 .li-id {
