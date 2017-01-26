@@ -9,7 +9,7 @@ module.exports = {
     path: __dirname,
     filename: "[name].bundle.js"
   },
-  
+
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
@@ -19,5 +19,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.json', '.scss', '.css']
-  }
+  },
+  node: {
+  module: "empty",
+  fs: "empty",
+  net: "empty",
+  "child_process": "empty"
+}
 };
