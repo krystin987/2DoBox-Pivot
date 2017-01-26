@@ -14,7 +14,7 @@ describe('testing 2Dobox', function() {
   });
 
   test.afterEach(()=> {
-    driver.quit();
+    // driver.quit();
   })
 
   test.it('should allow me to add a title and task', function() {
@@ -165,4 +165,33 @@ describe('testing 2Dobox', function() {
      assert.equal(importance, 'None');
    });
  });
+
+ test.it('should add class of complete when clicked', ()=> {
+   const title = driver.findElement({name: 'title'});
+   title.sendKeys('Title tester')
+   title.getAttribute('value').then((value) => {
+     assert.equal(value, 'Title tester');
+   });
+
+   const task = driver.findElement({name: 'task'});
+   task.sendKeys('task tester')
+   task.getAttribute('value').then((value)=> {
+     assert.equal(value, 'task tester');
+   });
+
+   const button = driver.findElement({name: 'save'});
+   button.click();
+   driver.findElements({tagName: 'ul'}).then((ul)=> {
+     assert.equal(ul.length, 1);
+   });
+
+   const completeBtn = driver.findElement({className: 'complete-btn'});
+   completeBtn.click();
+   const completeStatus = driver.findElement({className: 'complete-btn'});
+   completeStatus.getAttribute('class').then((complete)=> {
+     assert.equal(complete, 'complete-btn complete');
+   });
+
+ });
+
 });
