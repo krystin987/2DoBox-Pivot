@@ -123,6 +123,14 @@ button {
   cursor: pointer;
 }
 
+.show-complete {
+  padding: 5px;
+  background-color: #00A79D;
+  border-radius: 2px;
+  box-shadow: 0 2px .5px #939598;
+  color: #fff;
+  cursor: pointer;
+}
 .complete-btn {
   position: absolute;
   bottom: 15px;
