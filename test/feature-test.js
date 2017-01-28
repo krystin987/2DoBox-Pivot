@@ -191,7 +191,77 @@ describe('testing 2Dobox', function() {
    completeStatus.getAttribute('class').then((complete)=> {
      assert.equal(complete, 'idea-card complete');
    });
-
  });
 
+  test.it('should hide completed tasks on page reload', ()=> {
+    const title = driver.findElement({name: 'title'});
+    title.sendKeys('Title tester');
+    title.getAttribute('value').then((value) => {
+      assert.equal(value, 'Title tester');
+    });
+
+    const task = driver.findElement({name: 'task'});
+    task.sendKeys('task tester');
+    task.getAttribute('value').then((value)=> {
+      assert.equal(value, 'task tester');
+    });
+
+    const button = driver.findElement({name: 'save'});
+    button.click();
+    driver.findElements({tagName: 'ul'}).then((ul)=> {
+      assert.equal(ul.length, 1);
+    });
+
+    const completeBtn = driver.findElement({className: 'complete-btn'});
+    completeBtn.click();
+    const completeStatus = driver.findElement({className: 'idea-card'});
+    completeStatus.getAttribute('class').then((complete)=> {
+      assert.equal(complete, 'idea-card complete');
+    });
+
+    driver.navigate().refresh();
+    const completedTasks = driver.findElement({className: 'idea-card complete'});
+    completedTasks.getAttribute('style').then((display)=> {
+      assert.equal(display, 'display: none;');
+    });
+  });
+
+  test.it.only('should show completed tasks when the "show completed tasks" button is clicked', ()=> {
+    const title = driver.findElement({name: 'title'});
+    title.sendKeys('Title tester');
+    title.getAttribute('value').then((value) => {
+      assert.equal(value, 'Title tester');
+    });
+
+    const task = driver.findElement({name: 'task'});
+    task.sendKeys('task tester');
+    task.getAttribute('value').then((value)=> {
+      assert.equal(value, 'task tester');
+    });
+
+    const button = driver.findElement({name: 'save'});
+    button.click();
+    driver.findElements({tagName: 'ul'}).then((ul)=> {
+      assert.equal(ul.length, 1);
+    });
+
+    const completeBtn = driver.findElement({className: 'complete-btn'});
+    completeBtn.click();
+    const completeStatus = driver.findElement({className: 'idea-card'});
+    completeStatus.getAttribute('class').then((complete)=> {
+      assert.equal(complete, 'idea-card complete');
+    });
+
+    driver.navigate().refresh();
+    const completedTasks = driver.findElement({className: 'idea-card complete'});
+    completedTasks.getAttribute('style').then((display)=> {
+      assert.equal(display, 'display: none;');
+    });
+
+    const showCompletedTaskBtn = driver.findElement({className: 'show-complete'});
+    showCompletedTaskBtn.click();
+    completedTasks.getAttribute('style').then((display)=> {
+      assert.equal(display, '');
+    });
+  });
 });
