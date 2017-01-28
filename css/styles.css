@@ -133,14 +133,19 @@ button {
   cursor: pointer;
 }
 
-.show-complete {
+.show-more {
+  float: right;
+}
+.show-complete, .show-more {
+  width: 300px;
+  height: 25px;
   background-color: lightgrey;
   border-radius: 2px;
   color: #fff;
   cursor: pointer;
 }
 
-.show-complete:hover {
+.show-complete:hover, .show-more:hover {
   border: none;
   color: #fff;
   background-color: #00A79D;
