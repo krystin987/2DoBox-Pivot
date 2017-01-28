@@ -133,7 +133,20 @@ button {
   cursor: pointer;
 }
 
-.complete-btn {
+.show-complete {
+  background-color: lightgrey;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.show-complete:hover {
+  border: none;
+  color: #fff;
+  background-color: #00A79D;
+}
+
+.complete-btn  {
   position: absolute;
   top: 10px;
   left: 5px;
