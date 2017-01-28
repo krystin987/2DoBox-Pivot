@@ -1,16 +1,16 @@
-/*Universals*/
-
 body {
-  height:100vh;
   font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  background-color: #222;
 }
 
 h1 {
-  margin-left: 35%;
-  font-family: 'Roboto Sans';
+  padding: 10px 0;
+  color: #6D6E71;
+  font-family: 'Roboto Slab';
   font-weight: 700;
-  font-size:3em;
-  color:#6D6E71;
+  font-size: 3em;
+  text-align: center;
 }
 
 span {
@@ -18,8 +18,9 @@ span {
 }
 
 input {
-  margin-top: 4%;
-  width:100%;
+  display: block;
+  margin: 15px auto;
+  width: 95%;
   font-family: 'Open Sans';
   font-size: 1.5em;
 }
@@ -30,49 +31,38 @@ li {
 }
 
 button {
-  /*width:40px;*/
   background: transparent;
   border:none;
 }
 
 /*Main layout*/
 
-.main {
-  display: flex;
-  height: 50%;
-  justify-content:center;
-  align-items:center;
+.wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.main-content{
+  padding: 25px 10px;
   background-color: #E5F3F2;
 }
 
-.search-section {
-  display:flex;
-  justify-content: center;
-}
-
+.search-section,
 .card-section {
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
+  padding: 5%;
 }
 
-/*Content in .main*/
-
-.main-content{
-  padding-top: 5%;
-}
+/*Save Button*/
 
 .save-btn {
-  margin-top: 30px;
-  margin-bottom: 5%;
-  border: none;
-  width: 100%;
+  display: block;
+  margin: 0 auto;
+  padding: 5px 0;
+  width: 95%;
   background-color: #00A79D;
-  font-family: 'Open Sans';
+  color: #fff;
   font-size: 1.5em;
-  color: white;
-
 }
 .save-btn:hover {
   background-color: #045E55;
@@ -82,39 +72,59 @@ button {
   background-color: lightgrey;
 }
 
-/*Content in .search-section*/
+/*Search Section*/
 
 .search-input {
-  margin-top: 4%;
-  margin-right: 250px;
-  margin-bottom: 4%;
+  margin: 10px auto;
   width: 100%;
-
+  border: 1px solid #D1D3D4;
 }
 
 /*Content in .card-section*/
 
 .idea-card {
   position: relative;
-  margin-bottom: 4%;
-  border-bottom: 2px solid #D1D3D4;
-  padding: 10px;
-  width: 65%;
+  margin: 0 0 20px 0;
+  padding: 10px 5px;
+  border: 1px solid #D1D3D4;
+  border-radius: 2px;
   font-family: 'Open Sans';
 }
 
-.li-title {
-  display:inline-block;
+.task-title {
+  margin: 35px 0 5px 0;
+  padding: 5px 0 5px 3px;
   color: #6D6E71;
   font-weight:700;
-  font-size: 1.5em;
+  font-size: 1.25em;
 }
 
+.task-body {
+  margin: 5px 0 10px 0;
+  padding: 5px 0 5px 3px;
+  color: #939598;
+}
+
+.task-importance {
+  color: #6D6E71;
+  font-size: 1em;
+}
+
+.task-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Task Card Buttons */
+
 .delete-btn {
-  float:right;
+  position: absolute;
+  top: 5px;
+  right: 5px;
   background: url(../images/delete.svg);
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   background-repeat: no-repeat;
 }
 
@@ -125,47 +135,44 @@ button {
 
 .complete-btn {
   position: absolute;
-  bottom: 15px;
-  right: 5px;
+  top: 10px;
+  left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
-  background-color: #939598;
+  background-color: lightgrey;
   border-radius: 2px;
-  box-shadow: 0 2px .5px #939598;
   color: #fff;
   cursor: pointer;
 }
 
-.complete-btn:hover,
-.complete-btn:focus {
+.checkmark {
+  height: 15px;
+  width: 15px;
+}
+
+.complete-btn:hover {
   border: none;
   color: #fff;
-  background-color: lightgreen;
+  background-color: #00A79D;
 }
 
-
-.li-body {
-  color: #939598;
-  line-height: 150%;
-}
+/* Completed Task Styling */
 
 .complete {
-  background-color: lightgrey;
+  background-color: #e8e8e8;
 }
 
-.li-id {
-  display: none;
-}
-
-.li-importance{
-  display:inline-block;
-  color: #6D6E71;
+.completed {
+  background-color: #00A79D;
 }
 
 .up-btn {
-  margin-left: 10px;
+  margin: 0 5px 0 0;
   background: url(../images/upvote.svg);
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   background-repeat: no-repeat;
 }
 
@@ -175,18 +182,14 @@ button {
 }
 
 .down-btn {
-  margin-left: 10px;
+  margin-right: 10px;
   background: url(../images/downvote.svg);
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   background-repeat: no-repeat;
 }
 
 .down-btn:hover {
   background: url(../images/downvote-hover.svg);
   cursor: pointer;
-}
-
-#key-number {
-  display: none;
 }
