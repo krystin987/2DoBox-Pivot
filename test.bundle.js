@@ -517,7 +517,7 @@
 	    var button = driver.findElement({ name: 'save' });
 	    button.click();
 	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
-	      assert.equal(ul.length, 1);
+	      assert.equal(ul.length, 0);
 	    });
 	  });
 
@@ -536,14 +536,14 @@
 
 	    var button = driver.findElement({ name: 'save' });
 	    button.click();
-	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
-	      assert.equal(ul.length, 1);
+	    driver.findElements({ tagName: 'h3' }).then(function (h3) {
+	      assert.equal(h3.length, 1);
 	    });
 
 	    var upVoteButton = driver.findElement({ className: 'up-btn' });
 	    upVoteButton.click();
 
-	    var importance = driver.findElement({ className: 'li-quality' });
+	    var importance = driver.findElement({ className: 'task-quality' });
 	    importance.getText().then(function (importance) {
 	      assert.equal(importance, 'High');
 	    });
@@ -564,15 +564,15 @@
 
 	    var button = driver.findElement({ name: 'save' });
 	    button.click();
-	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
-	      assert.equal(ul.length, 1);
+	    driver.findElements({ tagName: 'h3' }).then(function (h3) {
+	      assert.equal(h3.length, 1);
 	    });
 
 	    var upVoteButton = driver.findElement({ className: 'up-btn' });
 	    upVoteButton.click();
 	    upVoteButton.click();
 
-	    var importance = driver.findElement({ className: 'li-quality' });
+	    var importance = driver.findElement({ className: 'task-quality' });
 	    importance.getText().then(function (importance) {
 	      assert.equal(importance, 'Critical');
 	    });
@@ -593,14 +593,14 @@
 
 	    var button = driver.findElement({ name: 'save' });
 	    button.click();
-	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
-	      assert.equal(ul.length, 1);
+	    driver.findElements({ tagName: 'h3' }).then(function (h3) {
+	      assert.equal(h3.length, 1);
 	    });
 
 	    var downVoteButton = driver.findElement({ className: 'down-btn' });
 	    downVoteButton.click();
 
-	    var importance = driver.findElement({ className: 'li-quality' });
+	    var importance = driver.findElement({ className: 'task-quality' });
 	    importance.getText().then(function (importance) {
 	      assert.equal(importance, 'Low');
 	    });
@@ -621,15 +621,15 @@
 
 	    var button = driver.findElement({ name: 'save' });
 	    button.click();
-	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
-	      assert.equal(ul.length, 1);
+	    driver.findElements({ tagName: 'h3' }).then(function (h3) {
+	      assert.equal(h3.length, 1);
 	    });
 
 	    var downVoteButton = driver.findElement({ className: 'down-btn' });
 	    downVoteButton.click();
 	    downVoteButton.click();
 
-	    var importance = driver.findElement({ className: 'li-quality' });
+	    var importance = driver.findElement({ className: 'task-quality' });
 	    importance.getText().then(function (importance) {
 	      assert.equal(importance, 'None');
 	    });
@@ -650,8 +650,8 @@
 
 	    var button = driver.findElement({ name: 'save' });
 	    button.click();
-	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
-	      assert.equal(ul.length, 1);
+	    driver.findElements({ tagName: 'h3' }).then(function (h3) {
+	      assert.equal(h3.length, 1);
 	    });
 
 	    var completeBtn = driver.findElement({ className: 'complete-btn' });
@@ -659,6 +659,78 @@
 	    var completeStatus = driver.findElement({ className: 'idea-card' });
 	    completeStatus.getAttribute('class').then(function (complete) {
 	      assert.equal(complete, 'idea-card complete');
+	    });
+	  });
+
+	  test.it('should hide completed tasks on page reload', function () {
+	    var title = driver.findElement({ name: 'title' });
+	    title.sendKeys('Title tester');
+	    title.getAttribute('value').then(function (value) {
+	      assert.equal(value, 'Title tester');
+	    });
+
+	    var task = driver.findElement({ name: 'task' });
+	    task.sendKeys('task tester');
+	    task.getAttribute('value').then(function (value) {
+	      assert.equal(value, 'task tester');
+	    });
+
+	    var button = driver.findElement({ name: 'save' });
+	    button.click();
+	    driver.findElements({ tagName: 'h3' }).then(function (h3) {
+	      assert.equal(h3.length, 1);
+	    });
+
+	    var completeBtn = driver.findElement({ className: 'complete-btn' });
+	    completeBtn.click();
+	    var completeStatus = driver.findElement({ className: 'idea-card' });
+	    completeStatus.getAttribute('class').then(function (complete) {
+	      assert.equal(complete, 'idea-card complete');
+	    });
+
+	    driver.navigate().refresh();
+	    var completedTasks = driver.findElement({ className: 'idea-card complete' });
+	    completedTasks.getAttribute('style').then(function (display) {
+	      assert.equal(display, 'display: none;');
+	    });
+	  });
+
+	  test.it('should show completed tasks when the "show completed tasks" button is clicked', function () {
+	    var title = driver.findElement({ name: 'title' });
+	    title.sendKeys('Title tester');
+	    title.getAttribute('value').then(function (value) {
+	      assert.equal(value, 'Title tester');
+	    });
+
+	    var task = driver.findElement({ name: 'task' });
+	    task.sendKeys('task tester');
+	    task.getAttribute('value').then(function (value) {
+	      assert.equal(value, 'task tester');
+	    });
+
+	    var button = driver.findElement({ name: 'save' });
+	    button.click();
+	    driver.findElements({ tagName: 'ul' }).then(function (ul) {
+	      assert.equal(ul.length, 0);
+	    });
+
+	    var completeBtn = driver.findElement({ className: 'complete-btn' });
+	    completeBtn.click();
+	    var completeStatus = driver.findElement({ className: 'idea-card' });
+	    completeStatus.getAttribute('class').then(function (complete) {
+	      assert.equal(complete, 'idea-card complete');
+	    });
+
+	    driver.navigate().refresh();
+	    var completedTasks = driver.findElement({ className: 'idea-card complete' });
+	    completedTasks.getAttribute('style').then(function (display) {
+	      assert.equal(display, 'display: none;');
+	    });
+
+	    var showCompletedTaskBtn = driver.findElement({ className: 'show-complete' });
+	    showCompletedTaskBtn.click();
+	    completedTasks.getAttribute('style').then(function (display) {
+	      assert.equal(display, '');
 	    });
 	  });
 	});
