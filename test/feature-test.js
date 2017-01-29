@@ -212,6 +212,10 @@ describe('testing 2Dobox', function() {
       assert.equal(h3.length, 1);
     });
 
+    title.sendKeys('Title tester');
+    task.sendKeys('task tester');
+    button.click()
+
     const completeBtn = driver.findElement({className: 'complete-btn'});
     completeBtn.click();
     const completeStatus = driver.findElement({className: 'idea-card'});
@@ -220,9 +224,9 @@ describe('testing 2Dobox', function() {
     });
 
     driver.navigate().refresh();
-    const completedTasks = driver.findElement({className: 'idea-card complete'});
-    completedTasks.getAttribute('style').then((display) => {
-      assert.equal(display, 'display: none;');
+    const incompleteTasks = driver.findElement({tagName: 'article'});
+    incompleteTasks.getAttribute('class').then((incomplete) => {
+      assert.equal(incomplete, 'idea-card');
     });
   });
 
@@ -253,15 +257,11 @@ describe('testing 2Dobox', function() {
     });
 
     driver.navigate().refresh();
-    const completedTasks = driver.findElement({className: 'idea-card complete'});
-    completedTasks.getAttribute('style').then((display) => {
-      assert.equal(display, 'display: none;');
-    });
-
     const showCompletedTaskBtn = driver.findElement({className: 'show-complete'});
     showCompletedTaskBtn.click();
-    completedTasks.getAttribute('style').then((display) => {
-      assert.equal(display, '');
+    const completedTasks = driver.findElement({tagName: 'article'});
+    completedTasks.getAttribute('class').then((complete) => {
+      assert.equal(complete, 'idea-card complete');
     });
   });
 });

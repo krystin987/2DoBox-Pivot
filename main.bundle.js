@@ -47,9 +47,9 @@
 	'use strict';
 
 	var styles = __webpack_require__(1);
-	var oldCode = __webpack_require__(5);
-	var newCode = __webpack_require__(6);
-	var newNewCode = __webpack_require__(7);
+	var app = __webpack_require__(5);
+	var search = __webpack_require__(6);
+	var task = __webpack_require__(7);
 
 /***/ },
 /* 1 */
@@ -86,7 +86,7 @@
 
 
 	// module
-	exports.push([module.id, "/* lib/styles.scss */\nbody {\n  color: #F00; }\n", ""]);
+	exports.push([module.id, "/* lib/styles.scss */\n", ""]);
 
 	// exports
 
@@ -405,24 +405,25 @@
 
 	'use strict';
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var NewIdea = function NewIdea(title, body, quality) {
-	  _classCallCheck(this, NewIdea);
-
-	  this.title = title;
-	  this.body = body;
-	  this.id = Date.now();
-	  this.quality = quality || 'Normal';
-	  this.class = '';
-	};
-
 	$(function () {
 	  var taskKeys = Object.keys(localStorage);
 	  taskKeys.map(function (taskKey) {
 	    var storedTask = JSON.parse(localStorage[taskKey]);
 	    displayCard(storedTask);
+	    var completedTask = $('.card-section').find('.complete');
+	    completedTask.hide();
+	    if (completedTask.hasClass('complete')) {
+	      $('.show-complete').attr('disabled', false);
+	    }
 	  });
+	});
+
+	$('.show-complete').on('click', function (e) {
+	  e.preventDefault();
+	  $('.show-complete').toggleClass('completed');
+
+	  var completedTask = $('.card-section').find('.complete');
+	  completedTask.toggle();
 	});
 
 	$('.card-section').on('click', '.delete-btn', function () {
@@ -436,16 +437,17 @@
 	  var id = getID(this);
 	  var idea = getIdea(id);
 	  var currentClass = $(this).closest('.idea-card').attr('class');
-	  console.log(currentClass);
-	  idea.class = currentClass;
+	  idea.complete = currentClass;
 	  storeIdea(idea);
+
+	  $(this).addClass('completed');
 	});
 
 	$('.card-section').on('click', '.up-btn, .down-btn', function (e) {
 	  var importance = ["None", "Low", "Normal", "High", "Critical"];
 
 	  var upOrDown = e.currentTarget.className;
-	  var selector = $(this).closest('.idea-card').find('.li-quality');
+	  var selector = $(this).closest('.idea-card').find('.task-quality');
 	  var id = getID(this);
 	  var idea = getIdea(id);
 	  var currentQuality = idea.quality;
@@ -480,16 +482,14 @@
 	  }
 	});
 
-	$('.card-section').on('blur', '.card-box', function () {
+	$('.card-section').on('blur', '.idea-card', function () {
 	  var id = getID(this);
-	  var idea = getIdea(id);
-	  var selectorTitle = $(this).closest('.idea-card').find('.li-title');
-	  var selectorBody = $(this).closest('.idea-card').find('.li-body');
-	  var currentTitle = selectorTitle.text();
-	  var currentBody = selectorBody.text();
-	  idea.title = currentTitle;
-	  idea.body = currentBody;
-	  storeIdea(idea);
+	  var task = getIdea(id);
+	  var taskTitle = $(this).find('.task-title').text();
+	  var taskBody = $(this).find('.task-body').text();
+	  task.title = taskTitle;
+	  task.body = taskBody;
+	  storeIdea(task);
 	});
 
 	var getID = function getID(selector) {
@@ -505,14 +505,13 @@
 	};
 
 	var displayCard = function displayCard(idea) {
-	  $('.card-section').prepend('<section id="' + idea.id + '" class="' + idea.class + '">\n    <ul class="card-box">\n    <li class="li-title" contenteditable> ' + idea.title + ' </li>\n    <button class="delete-btn"></button>\n    <li class="li-body" contenteditable>' + idea.body + '</li>\n    <li id="key-number" class="li-id">"' + idea.id + '"</li>\n    <button class="up-btn"></button>\n    <button class="down-btn"></button>\n    <li>level of importance: <span class="li-quality">' + idea.quality + '</span></li>\n    <button class="complete-btn">Completed Task</button>\n    </ul>\n  </section>');
+	  $('.card-section').prepend('<article id="' + idea.id + '" class="' + idea.complete + '">\n      <button class="delete-btn"></button>\n      <h3 class="task-title" contenteditable>' + idea.title + '</h3>\n      <p class="task-body" contenteditable>' + idea.body + '</p>\n      <footer class="task-footer">\n        <button class="up-btn"></button>\n        <button class="down-btn"></button>\n        <p class="task-importance">Importance: <span class="task-quality">' + idea.quality + '</span></p>\n        <button class="complete-btn">Complete task</button>\n      </footer>\n    </article>');
 	};
 
 	$('.search-input').on('keyup', function () {
-	  var searchField = $(this).val().toLowerCase();
+	  var searchField = $('.search-input').val().toLowerCase();
 	  var cardBox = $('.idea-card');
 	  cardBox.each(function (index, task) {
-
 	    var taskText = $(task).text().toLowerCase();
 	    var matched = taskText.indexOf(searchField) !== -1;
 	    $(task).toggle(matched);
@@ -535,7 +534,19 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var NewIdea = function NewIdea(title, body, quality) {
+	  _classCallCheck(this, NewIdea);
+
+	  this.title = title;
+	  this.body = body;
+	  this.id = Date.now();
+	  this.quality = quality || 'Normal';
+	  this.complete = 'idea-card';
+	};
 
 /***/ }
 /******/ ]);
