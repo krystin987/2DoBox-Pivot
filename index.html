@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html>
-  <head lang="en">
+<html lang="en">
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -13,22 +13,27 @@
     <div class="wrapper">
       <section class="main-content">
         <header>
-          <h1><span>2Do</span>Box</h1>
+          <h1 tabindex="0"><span>2Do</span>Box</h1>
         </header>
         <form id="form-data">
-          <input class="title-input" name="title" type="text" placeholder="Title">
-          <input class="body-input" type="text" placeholder="Task" name="task">
+          <label aria-label="task-title" for="task-title">Task Title</label>
+          <input aria-labelledby="task-title" id="task-title" class="title-input" name="title" type="text" placeholder="Title">
+          <label aria-label="task-body" for="task-body">Task Body</label>
+          <input aria-labelledby="task-body" id="task-body" class="body-input" type="text" placeholder="Task" name="task">
         </form>
-        <button class="save-btn" type="submit" name="save" disabled>save</button>
+        <button tabindex="0" class="save-btn" type="submit" name="save" disabled>save</button>
       </section>
       <section class="search-section">
         <form>
-          <input class="search-input" type="text" name="search" placeholder="Search">
-          <button class="show-complete">Show Completed Tasks</button>
-          <button class="show-more">Show More Tasks</button>
+          <label aria-label="search" for="search">Search Field</label>
+          <input aria-labelledby="search" id="search" class="search-input" type="text" name="search" placeholder="Search">
+          <div class="btn-wrap">
+            <button class="show-complete" disabled><img class="checkmark" src="../images/checkmark.png" alt="checkmark icon">Show completed tasks</button>
+          </div>
         </form>
       </section>
       <section class="card-section">
+        <button class="show-more">Show more tasks</button>
       </section>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
