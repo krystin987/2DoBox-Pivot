@@ -97,7 +97,7 @@ label {
 .task-title {
   margin: 35px 0 5px 0;
   padding: 5px 0 5px 3px;
-  color: #6D6E71;
+  color: #474747;
   font-weight:700;
   font-size: 1.25em;
 }
@@ -105,12 +105,16 @@ label {
 .task-body {
   margin: 5px 0 10px 0;
   padding: 5px 0 5px 3px;
-  color: #939598;
+  color: #474747;
 }
 
 .task-importance {
   color: #6D6E71;
   font-size: 1em;
+}
+
+.task-quality {
+  color: #356a5b;
 }
 
 .task-footer {
@@ -181,7 +185,7 @@ label {
   top: 10px;
   left: 5px;
   padding: 5px 8px;
-  background-color: #959494;
+  background-color: #474747;
   border-radius: 20px;
   color: #fff;
   cursor: pointer;
