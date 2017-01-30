@@ -20,8 +20,8 @@
           <label aria-label="task-body" for="task-body">Task Body</label>
           <input aria-labelledby="task-body" id="task-body" class="body-input" type="text" placeholder="Task" name="task">
           <p class="char-count"></p>
+          <button tabindex="0" class="save-btn" type="submit" name="save" disabled>save</button>
         </form>
-        <button tabindex="0" class="save-btn" type="submit" name="save" disabled>save</button>
       </header>
       </section>
       <section class="search-section">
@@ -29,6 +29,13 @@
           <label aria-label="search" for="search">Search Field</label>
           <input aria-labelledby="search" id="search" class="search-input" type="text" name="search" placeholder="Search">
           <button class="show-complete" disabled><img class="checkmark" src="../images/checkmark.png" alt="checkmark icon">Show completed tasks</button>
+          <div class="filter-wrap">
+            <button id="none-btn" class="filter-btn" name="none">None</button>
+            <button id="low-btn" class="filter-btn" name="low">Low</button>
+            <button id="normal-btn" class="filter-btn" name="normal">Normal</button>
+            <button id="high-btn" class="filter-btn" name="high">High</button>
+            <button id="critical-btn" class="filter-btn" name="critical">Critical</button>
+          </div>
         </form>
       </section>
       <section class="card-section">
