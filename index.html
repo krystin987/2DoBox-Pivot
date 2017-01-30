@@ -14,7 +14,6 @@
       <section class="main-content">
         <header>
           <h1 tabindex="0"><span>2Do</span>Box</h1>
-        </header>
         <form id="form-data">
           <label aria-label="task-title" for="task-title">Task Title</label>
           <input aria-labelledby="task-title" id="task-title" class="title-input" name="title" type="text" placeholder="Title">
@@ -22,14 +21,13 @@
           <input aria-labelledby="task-body" id="task-body" class="body-input" type="text" placeholder="Task" name="task">
         </form>
         <button tabindex="0" class="save-btn" type="submit" name="save" disabled>save</button>
+      </header>
       </section>
       <section class="search-section">
         <form>
           <label aria-label="search" for="search">Search Field</label>
           <input aria-labelledby="search" id="search" class="search-input" type="text" name="search" placeholder="Search">
-          <div class="btn-wrap">
-            <button class="show-complete"><img class="checkmark" src="../images/checkmark.png" alt="checkmark icon">Show completed tasks</button>
-          </div>
+          <button class="show-complete" disabled><img class="checkmark" src="../images/checkmark.png" alt="checkmark icon">Show completed tasks</button>
         </form>
       </section>
       <section class="card-section">
