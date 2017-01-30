@@ -214,7 +214,7 @@ describe('testing 2Dobox', function() {
 
     title.sendKeys('Title tester');
     task.sendKeys('task tester');
-    button.click()
+    button.click();
 
     const completeBtn = driver.findElement({className: 'complete-btn'});
     completeBtn.click();
@@ -245,9 +245,6 @@ describe('testing 2Dobox', function() {
 
     const button = driver.findElement({name: 'save'});
     button.click();
-    driver.findElements({tagName: 'h3'}).then((h3) => {
-      assert.equal(h3.length, 1);
-    });
 
     const completeBtn = driver.findElement({className: 'complete-btn'});
     completeBtn.click();
@@ -264,6 +261,7 @@ describe('testing 2Dobox', function() {
       assert.equal(complete, 'idea-card complete');
     });
   });
+
 
   test.it('should remove a task when the delete button is clicked', ()=> {
     const title = driver.findElement({name: 'title'});
@@ -340,4 +338,5 @@ describe('testing 2Dobox', function() {
       assert.equal(value, 'Second body');
     });
   });
+
 });

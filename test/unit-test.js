@@ -1,7 +1,9 @@
-const assert = require('chai').assert;
-
-describe('our test bundle', function () {
-  it('should work', function () {
-    assert(true);
-  });
-  });
+// const assert = require('chai').assert;
+// const task = require('../lib/task');
+//
+//
+// describe('our New Idea', function () {
+//   test.it.only('should be a function', function () {
+//     assert.isFunction(NewIdea);
+//   });
+//   });
