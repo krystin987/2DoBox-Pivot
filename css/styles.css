@@ -87,6 +87,12 @@ label {
   font-weight: bold;
 }
 
+.clear-filter {
+  background-color: #000000;
+}
+
+
+
 #none-btn {
   background-color: #666666;
 }
@@ -215,7 +221,9 @@ label {
 }
 
 .show-complete:disabled,
-.show-complete:disabled:hover {
+.show-complete:disabled:hover,
+.show-more:disabled,
+.show-more:disabled:hover {
   background-color: #959494;
   cursor: default;
 }
