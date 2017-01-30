@@ -214,7 +214,7 @@ describe('testing 2Dobox', function() {
 
     title.sendKeys('Title tester');
     task.sendKeys('task tester');
-    button.click()
+    button.click();
 
     const completeBtn = driver.findElement({className: 'complete-btn'});
     completeBtn.click();
@@ -245,10 +245,6 @@ describe('testing 2Dobox', function() {
 
     const button = driver.findElement({name: 'save'});
     button.click();
-    driver.findElements({tagName: 'ul'}).then((ul) => {
-      assert.equal(ul.length, 0);
-    });
-
     const completeBtn = driver.findElement({className: 'complete-btn'});
     completeBtn.click();
     const completeStatus = driver.findElement({className: 'idea-card'});
@@ -264,4 +260,6 @@ describe('testing 2Dobox', function() {
       assert.equal(complete, 'idea-card complete');
     });
   });
+
+
 });
