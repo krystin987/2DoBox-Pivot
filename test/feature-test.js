@@ -14,10 +14,10 @@ describe('testing 2Dobox', function() {
   });
 
   test.afterEach(()=> {
-    driver.quit();
+    // driver.quit();
   });
 
-  test.it('should allow me to add a title and task', function() {
+  test.it.only('should allow me to add a title and task', function() {
 
     const title = driver.findElement({name: 'title'});
     title.sendKeys('Title tester');
