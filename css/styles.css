@@ -57,6 +57,13 @@ label {
   padding: 20px;
 }
 
+.char-count {
+  width: 95%;
+  margin: -5px 0 10px 0;
+  color: #CEE3E8;
+  text-align: right;
+}
+
 /*Save Button*/
 
 .save-btn {
@@ -79,7 +86,7 @@ label {
 /*Search Section*/
 
 .search-input {
-  margin: 10px auto;
+  margin: 10px auto 20px auto;
   width: 100%;
   border: 1px solid #D1D3D4;
 }
