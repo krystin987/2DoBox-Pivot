@@ -1,6 +1,7 @@
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+  background-color: lightgrey;
 }
 
 h1 {
@@ -53,7 +54,7 @@ label {
 
 .search-section,
 .card-section {
-  padding: 5%;
+  padding: 20px;
 }
 
 /*Save Button*/
@@ -196,8 +197,9 @@ label {
   background-color: #6b8e83;
 }
 
-
-
+.completed {
+  background-color: #356a5b;
+}
 
 /* Completed Task Styling */
 
@@ -229,4 +231,15 @@ label {
 .down-btn:hover {
   background: url(../images/downvote-hover.svg);
   cursor: pointer;
+}
+
+
+@media screen and (min-width: 468px) {
+  header,
+  .search-section,
+  .card-section {
+    width: 468px;
+    margin: 0 auto;
+  }
+
 }
