@@ -14,7 +14,7 @@ describe('testing 2Dobox', function() {
   });
 
   test.afterEach(()=> {
-    // driver.quit();
+    driver.quit();
   });
 
   test.it.only('should allow me to add a title and task', function() {
