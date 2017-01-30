@@ -245,8 +245,8 @@ describe('testing 2Dobox', function() {
 
     const button = driver.findElement({name: 'save'});
     button.click();
-    driver.findElements({tagName: 'ul'}).then((ul) => {
-      assert.equal(ul.length, 0);
+    driver.findElements({tagName: 'h3'}).then((h3) => {
+      assert.equal(h3.length, 1);
     });
 
     const completeBtn = driver.findElement({className: 'complete-btn'});
@@ -262,6 +262,82 @@ describe('testing 2Dobox', function() {
     const completedTasks = driver.findElement({tagName: 'article'});
     completedTasks.getAttribute('class').then((complete) => {
       assert.equal(complete, 'idea-card complete');
+    });
+  });
+
+  test.it('should remove a task when the delete button is clicked', ()=> {
+    const title = driver.findElement({name: 'title'});
+    title.sendKeys('Title tester');
+    title.getAttribute('value').then((value) => {
+      assert.equal(value, 'Title tester');
+    });
+
+    const task = driver.findElement({name: 'task'});
+    task.sendKeys('task tester');
+    task.getAttribute('value').then((value) => {
+      assert.equal(value, 'task tester');
+    });
+
+    const button = driver.findElement({name: 'save'});
+    button.click();
+
+    title.sendKeys('Title tester');
+    task.sendKeys('task tester');
+    button.click();
+
+    const deleteButton = driver.findElement({className: 'delete-btn'});
+    deleteButton.click();
+
+    driver.findElements({tagName: 'article'}).then((article) => {
+      assert.equal(article.length, 1);
+    });
+  });
+
+  test.it('should update the task title when edited', ()=> {
+    const title = driver.findElement({name: 'title'});
+    title.sendKeys('Title tester');
+    title.getAttribute('value').then((value) => {
+      assert.equal(value, 'Title tester');
+    });
+
+    const task = driver.findElement({name: 'task'});
+    task.sendKeys('task tester');
+    task.getAttribute('value').then((value) => {
+      assert.equal(value, 'task tester');
+    });
+
+    const button = driver.findElement({name: 'save'});
+    button.click();
+
+    title.clear();
+    title.sendKeys('Second title');
+
+    title.getAttribute('value').then((value) => {
+      assert.equal(value, 'Second title');
+    });
+  });
+
+  test.it('should update the task body when edited', ()=> {
+    const title = driver.findElement({name: 'title'});
+    title.sendKeys('Title tester');
+    title.getAttribute('value').then((value) => {
+      assert.equal(value, 'Title tester');
+    });
+
+    const task = driver.findElement({name: 'task'});
+    task.sendKeys('task tester');
+    task.getAttribute('value').then((value) => {
+      assert.equal(value, 'task tester');
+    });
+
+    const button = driver.findElement({name: 'save'});
+    button.click();
+
+    task.clear();
+    task.sendKeys('Second body');
+
+    task.getAttribute('value').then((value) => {
+      assert.equal(value, 'Second body');
     });
   });
 });
