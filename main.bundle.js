@@ -47,9 +47,9 @@
 	'use strict';
 
 	var styles = __webpack_require__(1);
-	var app = __webpack_require__(5);
-	var search = __webpack_require__(6);
-	var task = __webpack_require__(7);
+	var write = __webpack_require__(5);
+	var search = __webpack_require__(8);
+	var task = __webpack_require__(6);
 
 /***/ },
 /* 1 */
@@ -401,78 +401,89 @@
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	var _task = __webpack_require__(6);
+
+	var _helper = __webpack_require__(7);
+
 	$(function () {
 	  var taskKeys = Object.keys(localStorage);
-	  taskKeys.map(function (taskKey) {
+	  var limitKeys = taskKeys.slice(0, 10);
+	  limitKeys.map(function (taskKey) {
 	    var storedTask = JSON.parse(localStorage[taskKey]);
-	    displayCard(storedTask);
-	    var completedTask = $('.card-section').find('.complete');
-	    completedTask.hide();
-	    if (completedTask.hasClass('complete')) {
-	      $('.show-complete').attr('disabled', false);
+	    if (storedTask.complete === 'idea-card') {
+	      (0, _helper.displayCard)(storedTask);
+	    }
+	    if (storedTask.complete === 'idea-card complete') {
+	      $('.show-complete').prop('disabled', false);
 	    }
 	  });
 	});
 
 	$('.show-complete').on('click', function (e) {
 	  e.preventDefault();
-	  $('.show-complete').toggleClass('completed');
-
-	  var completedTask = $('.card-section').find('.complete');
-	  completedTask.toggle();
+	  var taskKeys = Object.keys(localStorage);
+	  taskKeys.map(function (taskKey) {
+	    var storedTask = JSON.parse(localStorage[taskKey]);
+	    if (storedTask.complete === 'idea-card complete') {
+	      (0, _helper.displayCard)(storedTask);
+	    }
+	    if (storedTask.complete === 'idea-card complete') {
+	      $('.show-complete').prop('disabled', true);
+	    }
+	  });
 	});
 
 	$('.card-section').on('click', '.delete-btn', function () {
-	  var id = getID(this);
+	  var id = (0, _helper.getID)(this);
 	  $(this).closest('.idea-card').remove();
 	  localStorage.removeItem(id);
 	});
 
 	$('.card-section').on('click', '.complete-btn', function () {
 	  $(this).closest('.idea-card').toggleClass('complete');
-	  var id = getID(this);
-	  var idea = getIdea(id);
+	  $(this).toggleClass('completed');
+	  var id = (0, _helper.getID)(this);
+	  var idea = (0, _helper.getIdea)(id);
 	  var currentClass = $(this).closest('.idea-card').attr('class');
+	  var buttonClass = $(this).attr('class');
 	  idea.complete = currentClass;
-	  storeIdea(idea);
-
-	  $(this).addClass('completed');
+	  idea.class = buttonClass;
+	  (0, _helper.storeIdea)(idea);
 	});
 
 	$('.card-section').on('click', '.up-btn, .down-btn', function (e) {
 	  var importance = ["None", "Low", "Normal", "High", "Critical"];
-
 	  var upOrDown = e.currentTarget.className;
-	  var selector = $(this).closest('.idea-card').find('.task-quality');
-	  var id = getID(this);
-	  var idea = getIdea(id);
+	  var taskImportance = $(this).closest('.idea-card').find('.task-quality');
+	  var id = (0, _helper.getID)(this);
+	  var idea = (0, _helper.getIdea)(id);
 	  var currentQuality = idea.quality;
 	  var currentIndex = importance.indexOf(currentQuality);
-
 	  if (upOrDown === 'up-btn' && currentIndex < 4) {
 	    idea.quality = importance[currentIndex + 1];
 	  } else if (upOrDown === 'down-btn' && currentIndex > 0) {
 	    idea.quality = importance[currentIndex - 1];
 	  }
-
-	  storeIdea(idea);
-	  selector.text(idea.quality);
+	  taskImportance.text(idea.quality);
+	  (0, _helper.storeIdea)(idea);
 	});
 
-	$('.save-btn').on('click', function () {
+	$('.save-btn').on('click', function (e) {
+	  e.preventDefault();
 	  var $titleInput = $('.title-input').val();
 	  var $bodyInput = $('.body-input').val();
-	  var $idea = new NewIdea($titleInput, $bodyInput);
-	  displayCard($idea);
-	  storeIdea($idea);
-	  clearInputs();
+	  var $idea = new _task.NewIdea($titleInput, $bodyInput);
+	  (0, _helper.charCountReset)(120);
+	  (0, _helper.displayCard)($idea);
+	  (0, _helper.storeIdea)($idea);
+	  (0, _helper.clearInputs)();
 	});
 
-	$('.title-input, .body-input').keyup(function () {
+	$('.title-input, .body-input').on('keyup', function () {
 	  var $title = $('.title-input').val();
 	  var $body = $('.body-input').val();
 	  if ($title && $body) {
@@ -482,31 +493,143 @@
 	  }
 	});
 
+	$('.body-input').on('keyup', function () {
+	  var taskLength = $('.body-input').val().length;
+	  (0, _helper.charCounter)(120, taskLength);
+	});
+
+	$('.search-section').on('click', function (e) {
+	  e.preventDefault();
+	  var filterBtn = e.target.id;
+	  switch (filterBtn) {
+	    case 'critical-btn':
+	      (0, _helper.taskFilter)('Critical');
+	      break;
+	    case 'high-btn':
+	      (0, _helper.taskFilter)('High');
+	      break;
+	    case 'normal-btn':
+	      (0, _helper.taskFilter)('Normal');
+	      break;
+	    case 'low-btn':
+	      (0, _helper.taskFilter)('Low');
+	      break;
+	    case 'none-btn':
+	      (0, _helper.taskFilter)('None');
+	      break;
+	  }
+	});
+
+	$('.clear-filter').on('click', function () {
+	  $('.idea-card').each(function (i, task) {
+	    var taskImportance = $(task).find('.task-quality').text();
+	    $(task).show();
+	  });
+	});
+
+	$('.show-more').on('click', function () {
+	  var taskKeys = Object.keys(localStorage);
+	  var limitKeys = taskKeys.slice(10);
+	  limitKeys.map(function (taskKey) {
+	    var storedTask = JSON.parse(localStorage[taskKey]);
+	    (0, _helper.displayCard)(storedTask);
+	  });
+	  $(this).prop('disabled', true);
+	});
+
 	$('.card-section').on('blur', '.idea-card', function () {
-	  var id = getID(this);
-	  var task = getIdea(id);
+	  var id = (0, _helper.getID)(this);
+	  var task = (0, _helper.getIdea)(id);
 	  var taskTitle = $(this).find('.task-title').text();
 	  var taskBody = $(this).find('.task-body').text();
 	  task.title = taskTitle;
 	  task.body = taskBody;
-	  storeIdea(task);
+	  (0, _helper.storeIdea)(task);
 	});
 
-	var getID = function getID(selector) {
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var NewIdea = exports.NewIdea = function NewIdea(title, body) {
+	  _classCallCheck(this, NewIdea);
+
+	  this.title = title;
+	  this.body = body;
+	  this.id = Date.now();
+	  this.quality = 'Normal';
+	  this.complete = 'idea-card';
+	  this.class = 'complete-btn';
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var charCounter = exports.charCounter = function charCounter(max, current) {
+	  var charCount = max - current;
+	  $('.char-count').text(charCount);
+	  if (charCount <= 0) {
+	    $('.char-count').text(0);
+	    $('.save-btn').prop('disabled', true);
+	  }
+	};
+
+	var charCountReset = exports.charCountReset = function charCountReset(max) {
+	  $('.char-count').text(120);
+	};
+
+	var taskFilter = exports.taskFilter = function taskFilter(importance) {
+	  $('.idea-card').each(function (i, task) {
+	    var taskImportance = $(task).find('.task-quality').text();
+	    if (taskImportance !== importance) {
+	      $(task).hide();
+	    } else {
+	      $(task).show();
+	    }
+	  });
+	};
+
+	var getID = exports.getID = function getID(selector) {
 	  return $(selector).closest(".idea-card").attr("id");
 	};
 
-	var getIdea = function getIdea(id) {
+	var getIdea = exports.getIdea = function getIdea(id) {
 	  return JSON.parse(localStorage.getItem(id));
 	};
 
-	var storeIdea = function storeIdea(idea) {
+	var storeIdea = exports.storeIdea = function storeIdea(idea) {
 	  localStorage.setItem(idea.id, JSON.stringify(idea));
 	};
 
-	var displayCard = function displayCard(idea) {
-	  $('.card-section').prepend('<article id="' + idea.id + '" class="' + idea.complete + '">\n      <button class="delete-btn"></button>\n      <h3 class="task-title" contenteditable>' + idea.title + '</h3>\n      <p class="task-body" contenteditable>' + idea.body + '</p>\n      <footer class="task-footer">\n        <button class="up-btn"></button>\n        <button class="down-btn"></button>\n        <p class="task-importance">Importance: <span class="task-quality">' + idea.quality + '</span></p>\n        <button class="complete-btn">Complete task</button>\n      </footer>\n    </article>');
+	var clearInputs = exports.clearInputs = function clearInputs() {
+	  $('.title-input').val('');
+	  $('.body-input').val('');
+	  $('.save-btn').attr('disabled', true);
 	};
+
+	var displayCard = exports.displayCard = function displayCard(idea) {
+	  $('.card-section').prepend('<article id="' + idea.id + '" class="' + idea.complete + '">\n      <button aria-label="delete task" class="delete-btn"></button>\n      <h3 class="task-title" contenteditable>' + idea.title + '</h3>\n      <p class="task-body" contenteditable>' + idea.body + '</p>\n      <footer class="task-footer">\n        <button aria-label="increase importance" class="up-btn"></button>\n        <button aria-label="decrease importance" class="down-btn"></button>\n        <p class="task-importance">Importance: <span class="task-quality">' + idea.quality + '</span></p>\n        <button class="' + idea.class + '">Complete task</button>\n      </footer>\n    </article>');
+	};
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
 
 	$('.search-input').on('keyup', function () {
 	  var searchField = $('.search-input').val().toLowerCase();
@@ -517,36 +640,6 @@
 	    $(task).toggle(matched);
 	  });
 	});
-
-	var clearInputs = function clearInputs() {
-	  $('.title-input').val('');
-	  $('.body-input').val('');
-	  $('.save-btn').attr('disabled', true);
-	};
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var NewIdea = function NewIdea(title, body, quality) {
-	  _classCallCheck(this, NewIdea);
-
-	  this.title = title;
-	  this.body = body;
-	  this.id = Date.now();
-	  this.quality = quality || 'Normal';
-	  this.complete = 'idea-card';
-	};
 
 /***/ }
 /******/ ]);
