@@ -17,7 +17,7 @@ describe('testing 2Dobox', function() {
     driver.quit();
   });
 
-  test.it.only('should allow me to add a title and task', function() {
+  test.it('should allow me to add a title and task', function() {
 
     const title = driver.findElement({name: 'title'});
     title.sendKeys('Title tester');
