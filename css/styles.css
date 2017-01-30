@@ -19,10 +19,12 @@ span {
 
 input {
   display: block;
-  margin: 15px auto;
+  margin: 10px auto;
+  padding: 2px;
   width: 95%;
   font-family: 'Open Sans';
   font-size: 1.25em;
+  border: none;
 }
 
 li {
@@ -52,6 +54,12 @@ label {
   background-color: #2b375b;
 }
 
+#form-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .search-section,
 .card-section {
   padding: 20px;
@@ -62,6 +70,41 @@ label {
   margin: -5px 0 10px 0;
   color: #CEE3E8;
   text-align: right;
+}
+
+.filter-wrap {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0 0 0;
+}
+
+.filter-btn {
+  width: 15%;
+  padding: 5px 0;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#none-btn {
+  background-color: #666666;
+}
+
+#low-btn {
+  background-color: #2b375b;
+}
+
+#normal-btn {
+  background-color: #356a5b;
+}
+
+#high-btn {
+  background-color: #d97808;
+}
+
+#critical-btn {
+  background-color: #9d0202;
 }
 
 /*Save Button*/
@@ -81,6 +124,7 @@ label {
 
 .save-btn[disabled] {
   background-color: #959494;
+  cursor: default;
 }
 
 /*Search Section*/
@@ -154,12 +198,6 @@ label {
   justify-content: space-between;
 }
 
-.show-complete {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .checkmark {
   padding: 0 5px 0 0;
   height: 15px;
@@ -179,6 +217,7 @@ label {
 .show-complete:disabled,
 .show-complete:disabled:hover {
   background-color: #959494;
+  cursor: default;
 }
 
 .show-complete:hover,
@@ -186,6 +225,13 @@ label {
   border: none;
   color: #fff;
   background-color: #5b9283;
+}
+
+.show-complete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .complete-btn  {
