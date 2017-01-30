@@ -93,7 +93,7 @@ describe('testing 2Dobox search feature', function() {
       });
   });
 
-  test.it.only('should NOT show cards if the task search terms do not match any current cards', function() {
+  test.it('should NOT show cards if the task search terms do not match any current cards', function() {
 
     const title = driver.findElement({name: 'title'});
     title.sendKeys('Title tester');
